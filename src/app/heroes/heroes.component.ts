@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Hero } from '../hero';
-import { HEROES } from '../mock.heroes';
+import { HeroService } from '../hero.service';
 
 @Component({
     selector: 'app-heroes',
@@ -9,11 +9,18 @@ import { HEROES } from '../mock.heroes';
 })
 export class HeroesComponent implements OnInit {
 
-    heroes = HEROES;
     @Input() hero: Hero;
     @Output() selected = new EventEmitter<Hero>();
 
-    constructor() { }
+    heroes: Hero[] = [];
+
+    constructor(private service: HeroService) {
+        service.getHeroes().subscribe(next =>{
+            console.log('Data', next);
+            this.heroes = next;
+            console.log('Heroes', this.heroes);
+        });
+    }
 
     ngOnInit(): void {
 

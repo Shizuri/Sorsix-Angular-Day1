@@ -1,5 +1,10 @@
 <ul class="heroes">
-  <li *ngFor="let h of heroes"(click)="onSelect(h)" [class.selected]="h === hero">
-    <span class="badge">{{h.id}}</span> {{h.name}}
+  <li *ngFor="let h of heroes">
+    <a routerLink="/heroes/{{h.id}}">
+      <span class="badge">{{h.id}}</span> {{h.name}}
+    </a>
   </li>
 </ul>
+<p *ngIf="heroes.length == 0">
+  No heroes YET.
+</p>
